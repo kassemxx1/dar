@@ -58,7 +58,7 @@ class CardCat extends StatelessWidget {
           final detail = message.data['detail'].toString();
 
           MainsScreen.book.add({
-            'cat': title,
+            'title': title,
             'imagelink': imagename,
             'price': price,
             'detail': detail

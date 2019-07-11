@@ -69,7 +69,7 @@ class BooksWidgets extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return MaterialButton(
             child: CardBooks(
-                MainsScreen.book[index]['cat'],
+                MainsScreen.book[index]['title'],
                 MainsScreen.book[index]['imagelink'],
                 MainsScreen.book[index]['price'],
                 ),
@@ -96,37 +96,41 @@ class CardBooks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        new CachedNetworkImage(
-          imageUrl: imagelink,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+
+        children: <Widget>[
+          new CachedNetworkImage(
+            imageUrl: imagelink,
 //              placeholder: new CircularProgressIndicator(),
 //              errorWidget: new Icon(Icons.error),
-        ),
-        Center(
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text('$cat  '),
-              ),
-              SizedBox(
-                width: 20.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 1.0),
-                child: Text(
-                  '$price\$',
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: Colors.green,
+          ),
+          Center(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text('$cat  '),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 1.0),
+                  child: Text(
+                    '$price\$',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: Colors.green,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -140,57 +144,40 @@ class ddd extends StatelessWidget {
     return Swiper(
       itemCount: MainsScreen.book.length,
       itemBuilder: (BuildContext context,  lll) {
-       var ccc = kkk + lll;
-       if(ccc > MainsScreen.book.length-1){
-        var aaa = ccc - MainsScreen.book.length;
+        var ccc = kkk + lll;
+        if (ccc > MainsScreen.book.length - 1) {
+          var aaa = ccc - MainsScreen.book.length;
           ccc = aaa;
-       }
+        }
         return SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-
-              Stack(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        child: SizedBox(
-                          height: 50.0,
-                        ),
-                      ),
-                      new CachedNetworkImage(
-                        imageUrl: MainsScreen.book[ccc]['imagelink'],
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new CachedNetworkImage(
+                      imageUrl: MainsScreen.book[ccc]['imagelink'],
 //              placeholder: new CircularProgressIndicator(),
 //              errorWidget: new Icon(Icons.error),
-                        fit: BoxFit.fill,
-
-                      ),
-//                      new Image.network(
-//                        imagelinkk,
-//                        fit: BoxFit.fill,
-//                        gaplessPlayback: false,
-//                      ),
-//                      new Image.network(
-//                        imagelinkk,
-//                        fit: BoxFit.fill,
-//                        gaplessPlayback: false,
-//                      ),
-//                      new Image.network(
-//                        imagelinkk,
-//                        fit: BoxFit.fill,
-//                        gaplessPlayback: false,
-//                      ),
-//                      new Image.network(
-//                        imagelinkk,
-//                        fit: BoxFit.fill,
-//                        gaplessPlayback: false,
-//                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                ),
+               Text(MainsScreen.book[ccc]['title'],style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20.0,fontStyle: FontStyle.normal,),textAlign: TextAlign.right,),
+                new CachedNetworkImage(
+                  imageUrl: MainsScreen.book[ccc]['imagelink'],
+//              placeholder: new CircularProgressIndicator(),
+//              errorWidget: new Icon(Icons.error),
+                ),
+                new CachedNetworkImage(
+                  imageUrl: MainsScreen.book[ccc]['imagelink'],
+//              placeholder: new CircularProgressIndicator(),
+//              errorWidget: new Icon(Icons.error),
+                ),
+              ],
+            ),
           ),
+
+          scrollDirection: Axis.vertical,
         );
       },
       viewportFraction: 0.8,
@@ -214,8 +201,8 @@ class TransparentRoute extends PageRoute<void> {
   bool get opaque => false;
 
   @override
-  Color get barrierColor => null;
-
+  Color get barrierColor => Colors.black.withOpacity(0.5);
+  
   @override
   String get barrierLabel => null;
 
@@ -230,7 +217,7 @@ class TransparentRoute extends PageRoute<void> {
       Animation<double> secondaryAnimation) {
     final result = builder(context);
     return FadeTransition(
-      opacity: Tween<double>(begin: 0, end: 1).animate(animation),
+      opacity: Tween<double>(begin: 0.5, end: 1).animate(animation),
       child: Semantics(
         scopesRoute: true,
         explicitChildNodes: true,
